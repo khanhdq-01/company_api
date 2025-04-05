@@ -9,14 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('company_profiles', function (Blueprint $table) {
+        Schema::create('blog_details', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->string('image_path')->nullable();
+            $table->unsignedBigInteger('blog_id');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company_profiles');
+        Schema::dropIfExists('article_details');
     }
 };

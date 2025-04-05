@@ -18,11 +18,9 @@ class Achievement extends Model
         'summary',
         'description',
         'image_path',
-        'is_featured'
     ];
 
     protected $casts = [
         'date' => 'date',
-        'is_featured' => 'boolean'
     ];
 }

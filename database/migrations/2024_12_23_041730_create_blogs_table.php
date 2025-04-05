@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('article_details', function (Blueprint $table) {
+        Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('article_id');
+            $table->string('name', 100);
+            $table->text('description')->nullable(); // Mô tả sản phẩm
+            $table->string('image', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('article_details');
+        //
     }
 };

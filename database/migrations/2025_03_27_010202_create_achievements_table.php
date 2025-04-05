@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('summary');
             $table->text('description')->nullable();
             $table->string('image_path')->nullable();
-            $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
     }
