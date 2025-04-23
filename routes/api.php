@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function(){
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
     Route::get('/me', [AuthController::class, 'me'])->middleware(['auth:sanctum']);
     Route::get('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
 });
@@ -103,6 +104,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     //Blog
     Route::get('/blog', [BlogController::class, 'index']);
     Route::get('/blog/{id}', [BlogController::class, 'show']);
+    Route::get('/blog/{id}', [BlogController::class, 'details']);
 
     //Company info
     Route::get('/company-info', [CompanyInforController::class, 'index']);
