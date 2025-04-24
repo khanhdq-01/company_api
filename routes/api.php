@@ -114,6 +114,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     //Contact
     Route::post('/contact', [ContactController::class, 'store']);
+    Route::get('/contacts', [ContactController::class, 'index']);
+    Route::patch('contacts/{id}/status', [ContactController::class, 'updateStatus']);
 
     //Job
     Route::get('jobs', [JobController::class, 'index']); // Danh sách công việc

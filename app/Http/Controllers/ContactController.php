@@ -26,6 +26,27 @@ class ContactController extends Controller
             'message' => 'User information saved successfully!',
             'data' => $contact,
         ], 201);
-        
+    }
+
+    public function index()
+    {
+        $contacts = Contact::all();
+        return response()->json($contacts);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:new,read,replied'
+        ]);
+
+        $contact = Contact::findOrFail($id);
+        $contact->status = $request->status;
+        $contact->save();
+
+        return response()->json([
+            'message'=> 'Update status success',
+            'data'=> $contact,
+        ],200);
     }
 }
