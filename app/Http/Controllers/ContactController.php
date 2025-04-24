@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactFormSubmitted;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -20,6 +22,8 @@ class ContactController extends Controller
 
         // Save the data to the database
         $contact = Contact::create($validatedData);
+
+        Mail::to('admin@gmail.com')->send(new ContactFormSubmitted($contact));
 
         // Return a response
         return response()->json([
