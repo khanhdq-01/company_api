@@ -15,7 +15,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CompanyInforController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\PricingPlanController;
-
+use App\Http\Controllers\ServiceController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -88,6 +88,13 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Route::put('/{id}', [PricingPlanController::class, 'update']);
         Route::delete('/{id}', [PricingPlanController::class, 'destroy']);
     });
+
+    // Service
+    Route::post('/service', [ServiceController::class, 'store']);
+    Route::get('/service', [ServiceController::class, 'index']);
+    Route::put('/service/{id}', [ServiceController::class, 'update']);
+    Route::delete('/service/{id}', [ServiceController::class, 'destroy']);
+    Route::patch('service/{id}/status', [ServiceController::class, 'updateStatus']);
 });
     //Slider
     Route::get('/slide', [SlideController::class, 'index']);
