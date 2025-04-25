@@ -16,6 +16,7 @@ use App\Http\Controllers\CompanyInforController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\PricingPlanController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\VideoController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -95,6 +96,11 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::put('/service/{id}', [ServiceController::class, 'update']);
     Route::delete('/service/{id}', [ServiceController::class, 'destroy']);
     Route::patch('service/{id}/status', [ServiceController::class, 'updateStatus']);
+
+    //Video
+    Route::post('/video', [VideoController::class, 'store']);
+    Route::get('/video', [VideoController::class, 'index']);
+    Route::delete('/video/{id}', [VideoController::class, 'destroy']);
 });
     //Slider
     Route::get('/slide', [SlideController::class, 'index']);
