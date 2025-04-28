@@ -48,19 +48,6 @@ class BlogController extends Controller
             ], 500);
         }
     }
-    
-    
-
-    public function index() {
-        $blogs = Blog::select('id', 'title', 'name','description', 'image')->get();
-        return response(['data'=> $blogs]);
-    }
-
-    public function show($id)
-    {
-        $blogs = Blog::findOrFail($id);
-        return response()->json($blogs);
-    }
 
     public function update(Request $request, $id)
     {
@@ -144,9 +131,9 @@ class BlogController extends Controller
         ]);
     }
 
-    public function details($id)
+    public function details()
     {
-        $blog = Blog::with('user')->where('id', $id)->first();
+        $blog = Blog::with('user')->paginate(6);
         if ($blog) {
             return response()->json([
                 'message'=> 'Blog successfully fetched',

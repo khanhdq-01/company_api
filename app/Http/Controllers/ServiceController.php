@@ -28,8 +28,8 @@ class ServiceController extends Controller
                 $file = $request->file('image');
                 $fileName = $file->getClientOriginalName();
                 
-                // Store the image in the public disk under the 'blogs' folder
-                Storage::disk('public')->putFileAs('blogs', $file, $fileName);
+                // Store the image in the public disk under the 'services' folder
+                Storage::disk('public')->putFileAs('services', $file, $fileName);
                 $imageName = $fileName;
             }
 
@@ -74,7 +74,7 @@ class ServiceController extends Controller
             $fileName = $file->getClientOriginalName();
 
             // Lưu ảnh mới
-            Storage::disk('public')->putFileAs('blogs', $file, $fileName);
+            Storage::disk('public')->putFileAs('services', $file, $fileName);
             // Cập nhật tên ảnh mới
             $service->image = $fileName;
         }

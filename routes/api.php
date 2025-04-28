@@ -115,9 +115,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/member_other', [MemberOtherController::class, 'index']);
 
     //Blog
-    Route::get('/blog', [BlogController::class, 'index']);
-    Route::get('/blog/{id}', [BlogController::class, 'show']);
-    Route::get('/blog/{id}', [BlogController::class, 'details']);
+    Route::get('/blogs', [BlogController::class, 'details']);
 
     //Company info
     Route::get('/company-info', [CompanyInforController::class, 'index']);
