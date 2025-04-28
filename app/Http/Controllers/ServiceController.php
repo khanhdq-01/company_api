@@ -9,29 +9,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $service = Service::all();
-        return response()->json($service);
+        $services = Service::all();
+        return response()->json($services);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ServiceRequest $request)
     {
         $imageName = null;
-            if ($request->file('image')) {
-                $file = $request->file('image');
-                $fileName = $file->getClientOriginalName();
-                
-                // Store the image in the public disk under the 'blogs' folder
-                Storage::disk('public')->putFileAs('blogs', $file, $fileName);
-                $imageName = $fileName;
-            }
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            Storage::disk('public')->putFileAs('services', $file, $fileName);
+            $imageName = $fileName;
+        }
 
         $service = Service::create([
             'title' => $request->title,
@@ -42,74 +35,70 @@ class ServiceController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Service create successfully!',
+            'message' => 'Service created successfully!',
             'data' => $service,
         ], 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function show($id)
+    {
+        $service = Service::with('user')->findOrFail($id);
+
+        return response()->json([
+            'message' => 'Service detail fetched successfully',
+            'data' => $service,
+        ]);
+    }
+
     public function update(ServiceRequest $request, $id)
     {
         if ($request->isMethod('POST') && $request->has('_method')) {
             $request->setMethod($request->input('_method'));
         }
 
-        $service = Service::with('user')->where('id', $id)->first();
-        if (!$service) {
-            return response()->json([
-                'message' => 'Service not found',
-            ], 404);
-        }
+        $service = Service::findOrFail($id);
 
-        if ($service->user_id !== $request->user()->id) {
-            return response()->json([
-                'message' => 'Access denied',
-            ], 403);
-        }
+        $service->title = $request->title;
+        $service->long_description = $request->long_description;
+        $service->full_description = $request->full_description;
+
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = $file->getClientOriginalName();
+            if ($service->image) {
+                Storage::disk('public')->delete('services/' . $service->image);
+            }
 
-            // Lưu ảnh mới
-            Storage::disk('public')->putFileAs('blogs', $file, $fileName);
-            // Cập nhật tên ảnh mới
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            Storage::disk('public')->putFileAs('services', $file, $fileName);
             $service->image = $fileName;
         }
 
-        // Cập nhật các trường khác
-        $service->title = $request->input('title');
-        $service->long_description = $request->input('long_description');
-        $service->full_description = $request->input('full_description');
         $service->save();
 
         return response()->json([
             'message' => 'Service updated successfully',
-            'data' => $service
+            'data' => $service->load('user')
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $service = Service::findOrFail($id);
 
-        if (!$service) {
-            return response()->json(['message' => 'Order not found'], 404);
+        if ($service->image) {
+            Storage::disk('public')->delete('services/' . $service->image);
         }
 
         $service->delete();
+
         return response()->json([
             'message' => 'Service deleted successfully',
             'data' => $service
         ]);
     }
 
-    public function updateStatus(Request $request, string $id)
+    public function updateStatus(Request $request, $id)
     {
         $request->validate([
             'status' => 'required|in:active,inactive'
@@ -118,9 +107,32 @@ class ServiceController extends Controller
         $service = Service::findOrFail($id);
         $service->status = $request->status;
         $service->save();
+
         return response()->json([
-            'message'=> 'Update status success',
-            'data'=> $service
+            'message' => 'Status updated successfully',
+            'data' => $service
         ], 200);
+    }
+
+    public function uploadCKEditorImage(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $request->validate([
+                'upload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            $file = $request->file('upload');
+            $path = $file->store('ckeditor_images', 'public');
+
+            return response()->json([
+                'uploaded' => true,
+                'url' => asset('storage/' . $path),
+            ]);
+        }
+
+        return response()->json([
+            'uploaded' => false,
+            'error' => ['message' => 'No file uploaded or invalid format.']
+        ], 400);
     }
 }

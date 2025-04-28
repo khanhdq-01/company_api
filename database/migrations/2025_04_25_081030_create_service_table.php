@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('service', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->longText('long_description');
-            $table->longText('full_description');
+            $table->string('title')->nullable();
+            $table->longText('long_description')->nullable();
+            $table->longText('full_description')->nullable();
             $table->string('image', 255)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->unsignedBigInteger('user_id');

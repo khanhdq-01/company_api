@@ -92,16 +92,22 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     // Service
     Route::post('/service', [ServiceController::class, 'store']);
-    Route::get('/service', [ServiceController::class, 'index']);
     Route::put('/service/{id}', [ServiceController::class, 'update']);
     Route::delete('/service/{id}', [ServiceController::class, 'destroy']);
     Route::patch('service/{id}/status', [ServiceController::class, 'updateStatus']);
 
+    
+    
     //Video
     Route::post('/video', [VideoController::class, 'store']);
     Route::get('/video', [VideoController::class, 'index']);
     Route::delete('/video/{id}', [VideoController::class, 'destroy']);
 });
+    //service
+    Route::get('/service', [ServiceController::class, 'index']);
+    Route::get('/service/{id}', [ServiceController::class, 'show']);
+    //upload image
+    Route::post('/upload-image', [ServiceController::class, 'uploadCKEditorImage']);
     //Slider
     Route::get('/slide', [SlideController::class, 'index']);
 
@@ -115,9 +121,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/member_other', [MemberOtherController::class, 'index']);
 
     //Blog
-    Route::get('/blog', [BlogController::class, 'index']);
-    Route::get('/blog/{id}', [BlogController::class, 'show']);
-    Route::get('/blog/{id}', [BlogController::class, 'details']);
+    Route::get('/blogs', [BlogController::class, 'details']);
 
     //Company info
     Route::get('/company-info', [CompanyInforController::class, 'index']);

@@ -21,12 +21,13 @@ class ServiceRequest extends FormRequest
      */
     public function rules(): array
     {
+        
         return [
-            'title' => 'required|string|max:255',
-            'long_description' => 'required|string',
-            'full_description' => 'required|string',
+            'title' => 'nullable|string|max:255',
+            'long_description' => 'nullable|string',
+            'full_description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'nullable|exists:users,id'
         ];        
     }
 }
