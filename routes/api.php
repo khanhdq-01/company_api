@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::put('/blog/{id}', [BlogController::class, 'update']);
     Route::delete('/blog/{id}', [BlogController::class, 'destroy']);
 
+
      // Company info
     Route::post('/company-info', [CompanyInforController::class, 'store']);
     Route::get('/company-info/{id}', [CompanyInforController::class, 'show']);
@@ -108,6 +109,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/service/{id}', [ServiceController::class, 'show']);
     //upload image
     Route::post('/upload-image', [ServiceController::class, 'uploadCKEditorImage']);
+    // upload image blog
+    Route::post('/ckeditor/upload', [BlogController::class, 'uploadCKEditorImage']);
     //Slider
     Route::get('/slide', [SlideController::class, 'index']);
 
