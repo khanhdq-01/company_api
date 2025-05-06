@@ -11,7 +11,7 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::all();
+        $services = Service::with('user')->where('status', 'active')->paginate(6);
         return response()->json($services);
     }
 
@@ -119,8 +119,8 @@ class ServiceController extends Controller
         if ($request->hasFile('upload')) {
             $file = $request->file('upload');
             $filename = time().'_'.$file->getClientOriginalName();
-            $file->storeAs('public/uploads/ckeditor', $filename);
-            $url = url('storage/uploads/ckeditor/'.$filename);
+            $file->storeAs('public/service_images', $filename);
+            $url = url('storage/service_images/'.$filename);
             return response()->json([
                 'uploaded' => 1,
                 'fileName' => $filename,

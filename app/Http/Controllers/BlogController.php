@@ -151,8 +151,8 @@ class BlogController extends Controller
         if ($request->hasFile('upload')) {
             $file = $request->file('upload');
             $filename = time().'_'.$file->getClientOriginalName();
-            $file->storeAs('public/uploads/ckeditor', $filename);
-            $url = url('storage/uploads/ckeditor/'.$filename);
+            $file->storeAs('public/blog_images', $filename);
+            $url = url('storage/blog_images/'.$filename);
             return response()->json([
                 'uploaded' => 1,
                 'fileName' => $filename,
