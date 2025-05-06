@@ -117,22 +117,16 @@ class ServiceController extends Controller
     public function uploadCKEditorImage(Request $request)
     {
         if ($request->hasFile('upload')) {
-            $request->validate([
-                'upload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-
             $file = $request->file('upload');
-            $path = $file->store('ckeditor_images', 'public');
-
+            $filename = time().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/ckeditor', $filename);
+            $url = url('storage/uploads/ckeditor/'.$filename);
             return response()->json([
-                'uploaded' => true,
-                'url' => asset('storage/' . $path),
+                'uploaded' => 1,
+                'fileName' => $filename,
+                'url' => $url,
             ]);
         }
-
-        return response()->json([
-            'uploaded' => false,
-            'error' => ['message' => 'No file uploaded or invalid format.']
-        ], 400);
+        return response()->json(['uploaded' => 0, 'error' => ['message' => 'No file uploaded.']]);
     }
 }
