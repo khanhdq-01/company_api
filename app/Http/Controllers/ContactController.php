@@ -23,7 +23,7 @@ class ContactController extends Controller
         // Save the data to the database
         $contact = Contact::create($validatedData);
 
-        Mail::to('admin@gmail.com')->send(new ContactFormSubmitted($contact));
+        Mail::to('kodingsoftvn@gmail.com')->send(new ContactFormSubmitted($contact));
 
         // Return a response
         return response()->json([
