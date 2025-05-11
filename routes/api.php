@@ -101,9 +101,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
     
     //Video
     Route::post('/video', [VideoController::class, 'store']);
-    Route::get('/video', [VideoController::class, 'index']);
     Route::delete('/video/{id}', [VideoController::class, 'destroy']);
 });
+    Route::get('/video', [VideoController::class, 'index']);
     //service
     Route::get('/service', [ServiceController::class, 'index']);
     Route::get('/service/{id}', [ServiceController::class, 'show']);
