@@ -26,4 +26,5 @@ jobs:
           run: echo "✅ DEPLOY_PATH = $DEPLOY_PATH"
         run: |
           echo "📁 Deploying to: $DEPLOY_PATH"
-          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "cd $DEPLOY_PATH && chmod +x ./deploy.sh && ./deploy.sh prod"
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "cd ${{ secrets.VPS_DIR_API }} && chmod +x ./.deploy.sh && ./.deploy.sh prod"
+
