@@ -8,7 +8,6 @@ echo "Deploying to $ENV environment..."
 # Di chuyển đến thư mục dự án
 cd $REPO_PATH || { echo "Failed to change to $REPO_PATH"; exit 1; }
 
-git config pull.rebase true
 
 # Pull code mới nhất từ Git
 git pull --rebase origin develop || { echo "Git pull failed"; exit 1; }
