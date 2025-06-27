@@ -15,6 +15,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CompanyInforController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\PricingPlanController;
+use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VideoController;
 
@@ -97,7 +98,13 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::delete('/service/{id}', [ServiceController::class, 'destroy']);
     Route::patch('service/{id}/status', [ServiceController::class, 'updateStatus']);
 
-    
+    // Recruitment
+    Route::post('/recruiment', [RecruitmentController::class, 'store']);
+    Route::get('/recruiments', [RecruitmentController::class, 'index']);
+    Route::get('/recruiment/{id}', [RecruitmentController::class, 'show']);
+    Route::put('/recruiment/{id}', [RecruitmentController::class, 'update']);
+    Route::delete('/recruiment/{id}', [RecruitmentController::class, 'destroy']);
+    Route::patch('recruiment/{id}/status', [RecruitmentController::class, 'updateStatus']);
     
     //Video
     Route::post('/video', [VideoController::class, 'store']);
