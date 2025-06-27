@@ -51,7 +51,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::put('/slide/{id}', [SlideController::class, 'update']);
     Route::delete('/slide/{id}', [SlideController::class, 'destroy']);
 
-    //About APIs
+    //About APIss
     Route::post('/about', [AboutController::class, 'store']);
     Route::get('/about/{id}', [AboutController::class, 'show']);
     Route::put('/about/{id}', [AboutController::class, 'update']);
