@@ -8,8 +8,10 @@ echo "Deploying to $ENV environment..."
 # Di chuyển đến thư mục dự án
 cd $REPO_PATH || { echo "Failed to change to $REPO_PATH"; exit 1; }
 
+git config pull.rebase true
+
 # Pull code mới nhất từ Git
-git pull origin develop || { echo "Git pull failed"; exit 1; }
+git pull --rebase origin develop || { echo "Git pull failed"; exit 1; }
 
 # Cài đặt composer dependencies
 composer install --no-dev --optimize-autoloader || { echo "Composer install failed"; exit 1; }
