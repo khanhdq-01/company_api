@@ -18,7 +18,9 @@ composer install --no-dev --optimize-autoloader || { echo "Composer install fail
 if [ "$ENV" != "prod" ]; then
     php artisan migrate --force
 fi
-
+# Seeder (chạy ở mọi môi trường – hoặc thêm điều kiện nếu muốn chỉ chạy ở dev)
+php artisan db:seed --class=RoleSeeder || { echo "RoleSeeder failed"; exit 1; }
+php artisan db:seed --class=UserSeeder || { echo "UserSeeder failed"; exit 1; }
 # Xóa cache
 php artisan cache:clear
 php artisan config:cache
