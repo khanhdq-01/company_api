@@ -9,7 +9,7 @@ echo "Deploying to $ENV environment..."
 cd $REPO_PATH || { echo "Failed to change to $REPO_PATH"; exit 1; }
 
 # Pull code mới nhất từ Git
-git pull origin main || { echo "Git pull failed"; exit 1; }
+git pull origin develop || { echo "Git pull failed"; exit 1; }
 
 # Cài đặt composer dependencies
 composer install --no-dev --optimize-autoloader || { echo "Composer install failed"; exit 1; }
