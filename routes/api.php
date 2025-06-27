@@ -30,7 +30,7 @@ Route::prefix('auth')->group(function(){
 });
 
 Route::middleware(['auth:sanctum'])->group(function(){
-    // User APIss
+    // User APIs
     Route::post('/user', [UserController::class, 'store']);
 
     // Blog APIs;
