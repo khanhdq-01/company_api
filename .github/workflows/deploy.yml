@@ -20,5 +20,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to VPS
+        env:
+          DEPLOY_PATH: ${{ secrets.VPS_DIR_API }}
         run: |
-          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "cd ${{ secrets.VPS_DIR_API }} && ./deploy.sh prod"
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "cd $DEPLOY_PATH && chmod +x ./deploy.sh && ./deploy.sh prod"
