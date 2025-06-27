@@ -23,4 +23,5 @@ jobs:
         env:
           DEPLOY_PATH: ${{ secrets.VPS_DIR_API }}
         run: |
+          echo "Deploy path is: $DEPLOY_PATH"
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "cd $DEPLOY_PATH && chmod +x ./deploy.sh && ./deploy.sh prod"
