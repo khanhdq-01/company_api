@@ -22,8 +22,8 @@ if [ "$ENV" != "prod" ]; then
 fi
 
 # Seeder
-docker exec -i $DOCKER_CONTAINER php artisan db:seed --class=RoleSeeder || { echo "RoleSeeder failed"; exit 1; }
-docker exec -i $DOCKER_CONTAINER php artisan db:seed --class=UserSeeder || { echo "UserSeeder failed"; exit 1; }
+docker exec -i $DOCKER_CONTAINER php artisan db:seed --class=RoleSeeder --force|| { echo "RoleSeeder failed"; exit 1; }
+docker exec -i $DOCKER_CONTAINER php artisan db:seed --class=UserSeeder --force|| { echo "UserSeeder failed"; exit 1; }
 
 # Cache clear
 docker exec -i $DOCKER_CONTAINER php artisan cache:clear
