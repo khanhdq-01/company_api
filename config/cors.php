@@ -19,7 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:8080'],
+   'allowed_origins' => [
+    'http://localhost:8080',         // Cho phép từ Vue local dev
+    'https://kodingsoft.site',       // Cho phép từ production frontend
+    'https://www.kodingsoft.site',
+    ],
 
     'allowed_origins_patterns' => [],
 
