@@ -25,10 +25,17 @@ class ContactFormSubmitted extends Mailable
 
     public function build()
     {
-        return $this->subject("New contact from Website")
+        $email =  $this->subject("New contact from Website")
                     ->view("contact.contact_form")
                     ->with([
                         "contact"=> $this->contact
                     ]);
+
+        if ($this->contact->cv) {
+            $cvPath = storage_path('app/public/' . $this->contact->cv);
+            $email->attach($cvPath);
+        }
+
+        return $email;
     }
 }

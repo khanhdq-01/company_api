@@ -4,3 +4,10 @@
 <p><strong>Phone:</strong> {{ $contact->phone }}</p>
 <p><strong>Tiêu đề:</strong> {{ $contact->subject }}</p>
 <p><strong>Nội dung:</strong> {{ $contact->message }}</p>
+<p><strong>CV:</strong>
+    @if($contact->cv)
+        <a href="{{ asset('storage/' . $contact->cv) }}" target="_blank">Xem CV</a>
+    @else
+        Không có
+    @endif
+</p>
