@@ -74,11 +74,6 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::put('jobs/{id}', [JobController::class, 'update']); // Admin cập nhật công việc
     Route::delete('jobs/{id}', [JobController::class, 'destroy']); // Admin xóa công việc
 
-    // Application APIs
-    Route::get('applications', [ApplicationController::class, 'index']); // Admin xem danh sách ứng viên
-    Route::get('applications/{id}', [ApplicationController::class, 'show']); // Admin xem chi tiết ứng viên
-    Route::get('applications/{id}/download-cv', [ApplicationController::class, 'downloadCV']); // Admin tải CV
-
     // Achievement APIs
     Route::post('/achievements', [AchievementController::class, 'store']);
     Route::put('/achievements/{id}', [AchievementController::class, 'update']);
@@ -140,9 +135,6 @@ Route::middleware(['auth:sanctum'])->group(function(){
     //Job
     Route::get('jobs', [JobController::class, 'index']); // Danh sách công việc
     Route::get('jobs/{id}', [JobController::class, 'show']); // Chi tiết công việc
-
-    //Application
-    Route::post('applications', [ApplicationController::class, 'store']); // Khách gửi đơn ứng tuyển
 
     //Achievement
     Route::get('/achievements', [AchievementController::class, 'index']);
