@@ -18,7 +18,13 @@ class ContactController extends Controller
             'phone' => 'required|string|max:20',
             'subject' => 'nullable|string|max:255',
             'message' => 'nullable|string|max:65535',
+            'cv' => 'nullable|mimes:png,jpg,jpeg,pdf,doc,docx|max:2048',
         ]);
+
+        if ($request->hasFile('cv')) {
+            $cvPath = $request->file('cv')->store('cvs', 'public');
+            $validatedData['cv'] = $cvPath;
+        }
 
         // Save the data to the database
         $contact = Contact::create($validatedData);
