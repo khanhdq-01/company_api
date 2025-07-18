@@ -136,7 +136,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('jobs', [JobController::class, 'index']); // Danh sách công việc
     Route::get('jobs/{id}', [JobController::class, 'show']); // Chi tiết công việc
 
-    ///Achievement
+    //Achievement
     Route::get('/achievements', [AchievementController::class, 'index']);
     Route::get('/achievements/{id}', [AchievementController::class, 'show']);
     
