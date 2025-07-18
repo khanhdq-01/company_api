@@ -36,6 +36,8 @@ echo "🧹 Clearing & caching Laravel config..."
 docker exec -i $DOCKER_CONTAINER php artisan cache:clear
 docker exec -i $DOCKER_CONTAINER php artisan config:cache
 docker exec -i $DOCKER_CONTAINER php artisan route:cache
+# php artisan storage:link
+docker exec -i $DOCKER_CONTAINER php artisan storage:link || { echo "❌ Storage link failed"; exit 1; }
 
 # 7. Rebuild container Laravel
 echo "🐳 Rebuilding Laravel container..."
